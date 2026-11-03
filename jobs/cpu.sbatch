@@ -3,7 +3,7 @@
 #  GENERIC job without GPU (data preparation). Usage:
 #     sbatch -J job_name jobs/cpu.sbatch  script.py  --arguments
 #  Example:
-#     sbatch --mem=96G -J prep jobs/cpu.sbatch src/01_prepare_data.py
+#     sbatch --mem=96G -J prep jobs/cpu.sbatch 01_prepare_data.py
 # =====================================================================
 #SBATCH --job-name=splare_lce_cpu
 #SBATCH --partition=long

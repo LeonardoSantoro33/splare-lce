@@ -12,7 +12,7 @@ Automatic check: overlap of our top-k with the provided groundtruth_100.tsv / gr
 top-10 computed by whoever encoded the data). It must be ~1.00 (small differences only from exact score ties);
 otherwise data, ids or code are not aligned: stop and investigate.
 
-    sbatch -J base jobs/gpu.sbatch src/04_baseline.py
+    sbatch -J base jobs/gpu.sbatch 04_baseline.py
 """
 import argparse
 

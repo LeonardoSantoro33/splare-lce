@@ -20,7 +20,7 @@ Grid defaults (168 configurations + SPLARE alone, ~2-4 h on an A100):
     pruning  add:5 add:10 add:20 add:50 add:100 rtau:0.05 rtau:0.1
     original query latents never pruned (alpha = 0 is exactly SPLARE)
 
-    sbatch --time=06:00:00 -J val jobs/gpu.sbatch src/06_validate_lce.py
+    sbatch --time=06:00:00 -J val jobs/gpu.sbatch 06_validate_lce.py
 
 SECOND ROUND (optional, declared). --src S1 S2 ... adds a dimension to the grid: the expansion is computed only from
 the query latents with weight >= S x max(V_q) (0 = every latent, the first round). --tag NAME writes
@@ -29,7 +29,7 @@ If the test has already been looked at, the script refuses to select again unles
 with  --tag NAME --after-test  (07_test_lce.py --tag NAME then tests the configuration chosen in this round).
 Including 0 in --src re-runs configurations of the first round: their numbers must be identical (checked and logged).
 
-    sbatch --time=03:00:00 -J val2 jobs/gpu.sbatch src/06_validate_lce.py --tag src --after-test \
+    sbatch --time=03:00:00 -J val2 jobs/gpu.sbatch 06_validate_lce.py --tag src --after-test \
         --src 0 0.25 0.5 0.75 --alphas 0.05 0.1 0.2 0.3 --prunes add:10 add:20 add:50
 """
 import argparse

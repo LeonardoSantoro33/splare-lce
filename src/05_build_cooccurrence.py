@@ -16,7 +16,7 @@ Output in WORK_DIR/cooccurrence/:
 Cost (A100 40 GB): ~123.6k active latents -> ~61 GB on disk, about 1-2 hours.
 The job resumes from the finished row blocks if it is interrupted (just submit it again).
 
-    sbatch --time=06:00:00 -J cooc jobs/gpu.sbatch src/05_build_cooccurrence.py
+    sbatch --time=06:00:00 -J cooc jobs/gpu.sbatch 05_build_cooccurrence.py
 """
 import argparse
 

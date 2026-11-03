@@ -13,7 +13,7 @@ Output (WORK_DIR/results/ and runs/):
     lce_examples_test.txt       original vs added latents of the queries that gained / lost the most
     runs/<config>_test.trec     TREC run (readable by trec_eval, ranx, ir_measures)
 
-    sbatch --time=03:00:00 -J test jobs/gpu.sbatch src/07_test_lce.py
+    sbatch --time=03:00:00 -J test jobs/gpu.sbatch 07_test_lce.py
 
 --config NORM:ALPHA:PRUNE evaluates a configuration given by hand instead (e.g. an ablation): its result is
 marked "selection: manual" and must not be presented as the result chosen on validation.

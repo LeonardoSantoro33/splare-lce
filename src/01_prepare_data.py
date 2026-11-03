@@ -15,7 +15,7 @@ What it does:
   5. saves documents and dev queries as CSR .npy in WORK_DIR/cache: every other script reads these
 
 No GPU needed. 8.84M documents x 285 non-zeros = 2.5 billion entries: ~30 minutes, request 96G of RAM.
-    sbatch --mem=96G -J prep jobs/cpu.sbatch src/01_prepare_data.py
+    sbatch --mem=96G -J prep jobs/cpu.sbatch 01_prepare_data.py
 Quick test (saves nothing):
     python -u src/01_prepare_data.py --max-docs 100000 --no-save
 """

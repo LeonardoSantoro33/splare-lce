@@ -64,7 +64,7 @@ Paired, two-sided: Δ = (SPLARE + LCE) − SPLARE, 95% bootstrap CI, permutation
 MRR@10 is the primary metric.
 
 Per query (MRR@10): — wins, — ties, — losses. Gain by quartile of the number of latents of the original query:
-Q1 —, Q2 —, Q3 —, Q4 — (`fig3_test_by_query_length`).
+Q1 —, Q2 —, Q3 —, Q4 —.
 
 ## 6. SPLARE alone on the whole dev (for comparison with the published numbers)
 

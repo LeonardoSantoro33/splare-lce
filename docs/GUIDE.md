@@ -95,7 +95,7 @@ Sec. 3.4 of the paper (score 0 → 0.748).
 ## 2. Provided vectors → cache
 
 ```bash
-sbatch --mem=96G --time=02:00:00 -J prep jobs/cpu.sbatch src/01_prepare_data.py
+sbatch --mem=96G --time=02:00:00 -J prep jobs/cpu.sbatch 01_prepare_data.py
 grep "Entries in the mapping\|SAE latents\|dot-product check\|nnz_per_row_mean\|Cache saved" logs/prep_*.out
 ```
 
@@ -124,7 +124,7 @@ and `split.json` into the repository's `splits/` folder so that the split is pub
 ## 5. SPLARE without expansion
 
 ```bash
-sbatch --time=01:00:00 -J base jobs/gpu.sbatch src/04_baseline.py
+sbatch --time=01:00:00 -J base jobs/gpu.sbatch 04_baseline.py
 grep "Overlap\|\[splare |" logs/base_*.out
 ```
 
@@ -135,7 +135,7 @@ references of steps 7 and 8.
 ## 6. Co-occurrence matrix M
 
 ```bash
-sbatch --time=06:00:00 -J cooc jobs/gpu.sbatch src/05_build_cooccurrence.py
+sbatch --time=06:00:00 -J cooc jobs/gpu.sbatch 05_build_cooccurrence.py
 grep "active features\|row block\|M done" logs/cooc_*.out
 ```
 
@@ -145,19 +145,19 @@ finished row blocks. `cooccurrence/neighbours.txt` shows the most co-occurring l
 ## 7. Validation: choose the configuration
 
 ```bash
-sbatch --time=06:00:00 -J val jobs/gpu.sbatch src/06_validate_lce.py
+sbatch --time=06:00:00 -J val jobs/gpu.sbatch 06_validate_lce.py
 grep "SPLARE alone\|Best LCE\|    raw\|    cond\|    cosine\|    ppmi\|chosen" logs/val_*.out
 ```
 
 Default grid: 4 normalizations × α ∈ {0.05, 0.1, 0.2, 0.3, 0.5, 1} × pruning ∈ {add:5, add:10, add:20, add:50,
 add:100, rtau:0.05, rtau:0.1} = 168 configurations + SPLARE alone. The best validation MRR@10 (ties: fewer added
-latents) goes to `results/lce_best.json`. To widen the grid (e.g. after looking at `fig1`), rerun with other
+latents) goes to `results/lce_best.json`. To widen the grid, rerun with other
 `--alphas` / `--prunes`: this is allowed **only before step 8**.
 
 ## 8. Test: the final number
 
 ```bash
-sbatch --time=03:00:00 -J test jobs/gpu.sbatch src/07_test_lce.py
+sbatch --time=03:00:00 -J test jobs/gpu.sbatch 07_test_lce.py
 grep "\[splare |\|\[lce_\|wins\|quartile\|SPLARE .* -> " logs/test_*.out
 ```
 
@@ -181,9 +181,13 @@ SPLARE vs SPLARE + LCE on test: difference, 95% bootstrap CI, paired t-test and 
 
 ```bash
 python plots/lce_plots.py
+# or as a job (the job scripts add `src/` to the script name, hence `../`):
+sbatch -J plots jobs/cpu.sbatch ../plots/lce_plots.py
 ```
 
-Writes `plots/figures/fig1_validation_alpha`, `fig2_budget`, `fig3_test_by_query_length` (.png and .pdf) and
+Writes `plots/figures/fig1_validation` (every configuration on validation, by normalization, best of each marked)
+and `fig2`–`fig5` (`fig<k>_test_<norm>`: raw, cond, cosine, ppmi) (the best configuration of each normalization on test: difference from SPLARE with 95% CI
+and p(perm)), as .png and .pdf, and
 `tables.md` (the tables of `RESULTS.md`, filled in from the result files).
 
 ---
@@ -198,7 +202,7 @@ Nothing of the first round is touched: the second round writes `lce_validation_<
 ... and its names carry `_src<S>` (e.g. `lce_cond_a0.2_add20_src0.5`).
 
 ```bash
-sbatch --time=03:00:00 -J val2 jobs/gpu.sbatch src/06_validate_lce.py --tag src --after-test \
+sbatch --time=03:00:00 -J val2 jobs/gpu.sbatch 06_validate_lce.py --tag src --after-test \
     --src 0 0.25 0.5 0.75 --alphas 0.05 0.1 0.2 0.3 --prunes add:10 add:20 add:50
 grep "SECOND ROUND\|configurations\|check against\|Best configuration for each\|chosen" logs/val2_*.out
 ```
@@ -209,7 +213,7 @@ The grid is 4 values of src x 4 norms x 4 alphas x 3 prunings = 192 configuratio
 choice is still made on validation only.
 
 ```bash
-sbatch --time=03:00:00 -J test2 jobs/gpu.sbatch src/07_test_lce.py --tag src
+sbatch --time=03:00:00 -J test2 jobs/gpu.sbatch 07_test_lce.py --tag src
 python -u src/08_significance.py --tag src
 ```
 
