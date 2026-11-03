@@ -1,0 +1,35 @@
+{
+  "seed": 42,
+  "n_val": 1000,
+  "n_test": 5980,
+  "n_usable": 6980,
+  "rule": "sorted usable dev qids, numpy.random.default_rng(seed).permutation, first n_val = val",
+  "val": {
+    "n": 1000,
+    "md5": "396b933e5e0ef8be3f8ab081971c9c4a",
+    "first_qids": [
+      8854,
+      10312,
+      13397,
+      14151,
+      15607
+    ],
+    "query_nnz_mean": 107.27,
+    "query_nnz_median": 104.0,
+    "relevant_per_query_mean": 1.066
+  },
+  "test": {
+    "n": 5980,
+    "md5": "76acf2884619ab7170d6b40aef09f71c",
+    "first_qids": [
+      2,
+      1215,
+      1288,
+      1576,
+      2235
+    ],
+    "query_nnz_mean": 106.87775919732441,
+    "query_nnz_median": 104.0,
+    "relevant_per_query_mean": 1.0653846153846154
+  }
+}

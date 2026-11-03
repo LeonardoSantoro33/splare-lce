@@ -1,0 +1,6 @@
+# Tested with Python 3.11 (exact environment: requirements_env.txt). Python >= 3.9 works.
+torch==2.6.0          # any recent version with CUDA; the cluster uses the CUDA 11.8 build
+numpy>=1.26
+pandas
+matplotlib            # plots/lce_plots.py
+ranx                  # optional: only used by the smoke test to cross-check the metrics
