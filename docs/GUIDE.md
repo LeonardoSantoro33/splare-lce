@@ -189,33 +189,3 @@ Writes `plots/figures/fig1_validation` (every configuration on validation, by no
 and `fig2`–`fig5` (`fig<k>_test_<norm>`: raw, cond, cosine, ppmi) (the best configuration of each normalization on test: difference from SPLARE with 95% CI
 and p(perm)), as .png and .pdf, and
 `tables.md` (the tables of `RESULTS.md`, filled in from the result files).
-
----
-
-## 11. Optional second round: expand only from the strong query latents
-
-A declared follow-up, run after the first round. New option `--src S`: the expansion `A·V_q` is computed only from
-the query latents with weight >= S x max(V_q); the query itself is unchanged. `S = 0` uses every latent and is
-exactly the first round.
-
-Nothing of the first round is touched: the second round writes `lce_validation_<tag>.csv`, `lce_best_<tag>.json`,
-... and its names carry `_src<S>` (e.g. `lce_cond_a0.2_add20_src0.5`).
-
-```bash
-sbatch --time=03:00:00 -J val2 jobs/gpu.sbatch 06_validate_lce.py --tag src --after-test \
-    --src 0 0.25 0.5 0.75 --alphas 0.05 0.1 0.2 0.3 --prunes add:10 add:20 add:50
-grep "SECOND ROUND\|configurations\|check against\|Best configuration for each\|chosen" logs/val2_*.out
-```
-
-The grid is 4 values of src x 4 norms x 4 alphas x 3 prunings = 192 configurations + SPLARE. The ones with
-`src = 0` are first-round configurations: their numbers must be identical (the log prints
-`max |MRR@10 difference| = 0.000000`). `--after-test` declares that the test set was already looked at; the
-choice is still made on validation only.
-
-```bash
-sbatch --time=03:00:00 -J test2 jobs/gpu.sbatch 07_test_lce.py --tag src
-python -u src/08_significance.py --tag src
-```
-
-If the second round picks the configuration of the first round, `07` says so and tests nothing. In the paper, report
-both rounds and the total number of configurations tried (168 + 192).
