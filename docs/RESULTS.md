@@ -129,8 +129,3 @@ test as a complement (*manual*):
 | P(j \| i), src = 0.75 | −0.0009 [−0.0025, +0.0008] | 0.2966 | −0.0007 | 0.3294 | +0.0001 | 0.9272 | +0.0005 | 0.5286 | −0.0003 | 0.3668 |
 
 None of the differences is significant: with the source filter, LCE is on par with SPLARE, not better.
-
-## 8. Examples
-
-From `results/lce_examples_test.txt`: original and added latents of the test queries that gained and lost the
-most, and the rank of the first relevant passage before and after LCE.
