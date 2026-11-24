@@ -190,8 +190,6 @@ and `fig2`–`fig5` (`fig<k>_test_<norm>`: raw, cond, cosine, ppmi) (the best co
 and p(perm)), as .png and .pdf, and
 `tables.md` (the tables of `RESULTS.md`, filled in from the result files).
 
----
-
 ## 11. Optional second round: expand only from the strong query latents
 
 A declared follow-up, run after the first round. New option `--src S`: the expansion `A·V_q` is computed only from
