@@ -44,7 +44,7 @@ choose again after the test has been run). Metrics: MRR@10 (primary, official MS
 R@1000, exact search, top 1000. SPLARE and SPLARE + LCE are compared per query with a paired bootstrap and
 permutation test (`08_significance.py`).
 
-Results: [`docs/RESULTS.md`](docs/RESULTS.md) (to be filled as the runs finish).
+Results: [`docs/RESULTS.md`](docs/RESULTS.md).
 
 ## Repository structure
 
